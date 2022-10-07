@@ -1,5 +1,5 @@
 import React from "react";
-// import Container from "../../Container";
+
 import { Carousel, Row, Col, Typography, Space, Card } from "antd";
 import styled from "styled-components";
 
@@ -20,14 +20,15 @@ const Home = () => {
           <h1 style={contentStyle}>Friday Event</h1>
         </div>
       </Carousel>
-      <Card hoverable style={{ margin: 20, padding: 20 }}>
-        <Row gutter={60}>
-          <Col
-            xs={{ span: 24 }}
-            sm={{ span: 24 }}
-            md={{ span: 8 }}
-            lg={{ span: 8 }}
-          >
+
+      <Row gutter={60}>
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 24 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+        >
+          <Card hoverable style={{ margin: 20, padding: 20 }}>
             <Space align="center" direction="vertical">
               <StyledProgramName>Electrical Program</StyledProgramName>
               <StyledProgramDescription>
@@ -35,13 +36,16 @@ const Home = () => {
                 to learn about these concepts and that software ...more
               </StyledProgramDescription>
             </Space>
-          </Col>
-          <Col
-            xs={{ span: 24 }}
-            sm={{ span: 24 }}
-            md={{ span: 8 }}
-            lg={{ span: 8 }}
-          >
+          </Card>
+        </Col>
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 24 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+        >
+          {" "}
+          <Card hoverable style={{ margin: 20, padding: 20 }}>
             <Space align="center" direction="vertical">
               <StyledProgramName>Civil Program</StyledProgramName>
               <StyledProgramDescription>
@@ -49,14 +53,16 @@ const Home = () => {
                 to learn about these concepts and that software ...more
               </StyledProgramDescription>
             </Space>
-          </Col>
+          </Card>
+        </Col>
 
-          <Col
-            xs={{ span: 24 }}
-            sm={{ span: 24 }}
-            md={{ span: 8 }}
-            lg={{ span: 8 }}
-          >
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 24 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+        >
+          <Card hoverable style={{ margin: 20, padding: 20 }}>
             <Space align="center" direction="vertical">
               <StyledProgramName>Computer Program</StyledProgramName>
               <StyledProgramDescription>
@@ -64,9 +70,9 @@ const Home = () => {
                 to learn about these concepts and that software ...more
               </StyledProgramDescription>
             </Space>
-          </Col>
-        </Row>
-      </Card>
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 };
@@ -83,7 +89,7 @@ const StyledProgramDescription = styled.p`
   text-align: center;
 `;
 const contentStyle = {
-  height: "220px",
+  height: "300px",
   color: "#fff",
   lineHeight: "200px",
   textAlign: "center",

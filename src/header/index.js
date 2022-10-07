@@ -3,20 +3,22 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MenuOutlined } from "@ant-design/icons";
 import logo from "../assets/images/logo.png";
+import { useAuth } from "../router/publicRoutes";
+import { useNavigate } from "react-router-dom";
 // import "./header.css";
 import styled from "styled-components";
-
+import { AuthProvider } from "../router/publicRoutes";
 const Header = () => {
   const [visible, setVisible] = useState(false);
-
+  let auth = useAuth();
+  console.log("authhhhhhhhhhhhhh", auth);
+  const { navigate } = useNavigate;
   return (
     <StyledContainer>
       <Link to="/">
         <StyledLogoContainer>
           <Image style={{ marginTop: -21 }} width={100} src={logo} />
-          <h1 style={{ color: "#0079c0", alignSelf: "center" }}>
-            Sirat Institute of Skills Development
-          </h1>
+          <StyledLogoText>Sirat Institute of Skills Development</StyledLogoText>
         </StyledLogoContainer>
       </Link>
       <div
@@ -32,7 +34,23 @@ const Header = () => {
             marginRight: 15,
           }}
         >
-          <Button type="primary">Course Login </Button>
+          {auth?.user ? (
+            <Button
+              onClick={() => {
+                auth.signout(() => navigate("/"));
+              }}
+              type="primary"
+            >
+              Sign Out{" "}
+            </Button>
+          ) : (
+            <Link to={"/login"}>
+              {" "}
+              <Button onClick={() => navigate("/login")} type="primary">
+                Course Login{" "}
+              </Button>
+            </Link>
+          )}
           <StyledIconBar onClick={() => setVisible(true)}>
             <MenuOutlined style={{ fontSize: 25, marginTop: -15 }} />
           </StyledIconBar>
@@ -52,17 +70,23 @@ const Header = () => {
               </StyledLink>
             </li>
             <li>
-              <StyledLink onClick={() => setVisible(false)} to="/dashboard">
+              <StyledLink
+                onClick={() => setVisible(false)}
+                to="/programs-and-courses"
+              >
                 Program &amp; Courses
               </StyledLink>
             </li>
             <li>
-              <StyledLink onClick={() => setVisible(false)} to="/about">
+              <StyledLink
+                onClick={() => setVisible(false)}
+                to="/apply-and-enroll"
+              >
                 Apply &amp; Enroll
               </StyledLink>
             </li>
             <li>
-              <StyledLink onClick={() => setVisible(false)} to="/about">
+              <StyledLink onClick={() => setVisible(false)} to="/alumni">
                 Alumni
               </StyledLink>
             </li>
@@ -83,6 +107,15 @@ const Header = () => {
   );
 };
 
+const StyledLogoText = styled.h1`
+  color: #0079c0;
+  align-self: center;
+
+  @media only screen and (max-width: 830px) {
+    /* font-size: 8px; */
+    display: none;
+  }
+`;
 const StyledLogoContainer = styled.div`
   display: flex;
 
