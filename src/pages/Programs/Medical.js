@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
-import { Card, Col, Divider, Row, notification } from "antd";
+import { Card, Col, Divider, Row } from "antd";
 import cover from "../../assets/images/cover.jpg";
 import { PRIMARY_COLOR } from "../../constant/color";
 import styled from "styled-components";
@@ -73,7 +73,7 @@ const Programs = () => {
             justifyContent: "space-between",
           }}
         >
-          <StyledHeader>Electrical Engineering </StyledHeader>
+          <StyledHeader>Health and Fitness </StyledHeader>
           {isElecOpen ? (
             <MinusOutlined
               style={{ color: "black", fontSize: 30 }}
@@ -89,7 +89,7 @@ const Programs = () => {
         {isElecOpen && (
           <Row gutter={30}>
             {courses
-              ?.filter((data) => data?.category === "elc")
+              ?.filter((data) => data?.category === "hfit")
               .map((course) => (
                 <Col
                   style={{ marginBottom: 20 }}
@@ -119,7 +119,7 @@ const Programs = () => {
             justifyContent: "space-between",
           }}
         >
-          <StyledHeader>Mechatronics Engineering </StyledHeader>
+          <StyledHeader>Medicine </StyledHeader>
           {isMechOpen ? (
             <MinusOutlined
               style={{ color: "black", fontSize: 30 }}
@@ -135,7 +135,7 @@ const Programs = () => {
         {isMechOpen && (
           <Row gutter={30}>
             {courses
-              ?.filter((data) => data?.category === "mechtro")
+              ?.filter((data) => data?.category === "medc")
               .map((course) => (
                 <Col key={course?._id} xs={6} sm={12} md={8} lg={8}>
                   <StyledLink to={"/programs-and-courses/" + course?._id}>
@@ -158,7 +158,7 @@ const Programs = () => {
             justifyContent: "space-between",
           }}
         >
-          <StyledHeader>Computer Science/Engineering </StyledHeader>
+          <StyledHeader>Surgery </StyledHeader>
           {isCompOpen ? (
             <MinusOutlined
               style={{ color: "black", fontSize: 30 }}
@@ -174,7 +174,7 @@ const Programs = () => {
         {isCompOpen && (
           <Row gutter={30}>
             {courses
-              ?.filter((data) => data?.category === "comp")
+              ?.filter((data) => data?.category === "sur")
               .map((course) => (
                 <Col key={course?._id} xs={6} sm={12} md={8} lg={8}>
                   <StyledLink to={"/programs-and-courses/" + course?._id}>

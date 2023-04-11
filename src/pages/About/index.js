@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Col, Image, Row } from "antd";
+import { Card, Col, Row } from "antd";
 import cover from "../../assets/images/cover.jpg";
 import { PRIMARY_COLOR } from "../../constant/color";
 import styled from "styled-components";
@@ -38,7 +38,7 @@ const StyledText = styled.p`
 const About = () => {
   return (
     <div>
-      <Image width={"100%"} height={"20vw"} src={cover} />
+      <img width={"100%"} height={"300px"} src={cover} />
       <Card style={{ margin: 20 }} hoverable>
         <StyledHeader primaryColor={PRIMARY_COLOR}>Our History</StyledHeader>
         <StyledText>

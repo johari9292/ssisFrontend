@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Card, Col, Image, Row, Space, Layout, Button, Typography } from "antd";
+import { Card, Col, Row, Space, Layout, Button, Typography } from "antd";
 import cover from "../../assets/images/cover.jpg";
 import { PRIMARY_COLOR } from "../../constant/color";
 import styled from "styled-components";
@@ -27,7 +27,7 @@ const Apply = () => {
   };
   return (
     <div>
-      <Image width={"100%"} height={"20vw"} src={cover} />
+      <img width={"100%"} height={"300px"} src={cover} />
 
       <Row style={{ margin: 20 }} gutter={30}>
         <Col

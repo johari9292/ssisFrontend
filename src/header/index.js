@@ -1,23 +1,27 @@
-import { Space, Button, Image } from "antd";
+import { Space, Button, Image, Menu, Dropdown } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, DownOutlined } from "@ant-design/icons";
 import logo from "../assets/images/logo.png";
-import { useAuth } from "../router/publicRoutes";
+import { logout } from "../redux/slices/userSlice";
+
 import { useNavigate } from "react-router-dom";
 // import "./header.css";
 import styled from "styled-components";
-import { AuthProvider } from "../router/publicRoutes";
+
+import { useSelector, useDispatch } from "react-redux";
 const Header = () => {
   const [visible, setVisible] = useState(false);
-  let auth = useAuth();
+  const [index, setIndex] = useState(0);
+  let auth = useSelector((state) => state?.user?.status);
+  const dispatch = useDispatch();
   console.log("authhhhhhhhhhhhhh", auth);
   const { navigate } = useNavigate;
   return (
     <StyledContainer>
       <Link to="/">
         <StyledLogoContainer>
-          <Image style={{ marginTop: -21 }} width={100} src={logo} />
+          <img style={{ marginTop: -21 }} width={100} src={logo} />
           <StyledLogoText>Sirat Institute of Skills Development</StyledLogoText>
         </StyledLogoContainer>
       </Link>
@@ -34,10 +38,12 @@ const Header = () => {
             marginRight: 15,
           }}
         >
-          {auth?.user ? (
+          {auth ? (
             <Button
               onClick={() => {
-                auth.signout(() => navigate("/"));
+                // auth.signout(() => navigate("/"));
+                dispatch(logout());
+                window.localStorage.clear();
               }}
               type="primary"
             >
@@ -46,9 +52,7 @@ const Header = () => {
           ) : (
             <Link to={"/login"}>
               {" "}
-              <Button onClick={() => navigate("/login")} type="primary">
-                Course Login{" "}
-              </Button>
+              <Button type="primary">Course Login </Button>
             </Link>
           )}
           <StyledIconBar onClick={() => setVisible(true)}>
@@ -65,38 +69,121 @@ const Header = () => {
             </StyledClose>
             <li>
               {" "}
-              <StyledLink onClick={() => setVisible(false)} to="/about">
+              <StyledLink
+                active={index === 0}
+                onClick={() => {
+                  setVisible(false);
+                  setIndex(0);
+                }}
+                to="/"
+              >
+                Home
+              </StyledLink>
+            </li>
+            <li>
+              {" "}
+              <StyledLink
+                active={index === 1}
+                onClick={() => {
+                  setVisible(false);
+                  setIndex(1);
+                }}
+                to="/about"
+              >
                 About
               </StyledLink>
             </li>
-            <li>
+
+            <Dropdown
+              overlay={
+                <Menu
+                  items={[
+                    {
+                      key: "1",
+                      label: (
+                        <StyledLink
+                          active={index === 2}
+                          onClick={() => {
+                            setVisible(false);
+                            setIndex(2);
+                          }}
+                          to="/programs-and-courses/engineering"
+                        >
+                          Engineering Courses
+                        </StyledLink>
+                      ),
+                    },
+                    {
+                      key: "2",
+                      label: (
+                        <StyledLink
+                          active={index === 2}
+                          onClick={() => {
+                            setVisible(false);
+                            setIndex(2);
+                          }}
+                          to="/programs-and-courses/medical"
+                        >
+                          Medical Courses
+                        </StyledLink>
+                      ),
+                    },
+                  ]}
+                />
+              }
+            >
               <StyledLink
-                onClick={() => setVisible(false)}
-                to="/programs-and-courses"
+                active={index === 2}
+                onClick={(e) => e.preventDefault()}
               >
                 Program &amp; Courses
               </StyledLink>
-            </li>
+            </Dropdown>
             <li>
               <StyledLink
-                onClick={() => setVisible(false)}
+                active={index === 3}
+                onClick={() => {
+                  setVisible(false);
+                  setIndex(3);
+                }}
                 to="/apply-and-enroll"
               >
                 Apply &amp; Enroll
               </StyledLink>
             </li>
             <li>
-              <StyledLink onClick={() => setVisible(false)} to="/alumni">
+              <StyledLink
+                active={index === 4}
+                onClick={() => {
+                  setVisible(false);
+                  setIndex(4);
+                }}
+                to="/alumni"
+              >
                 Alumni
               </StyledLink>
             </li>
             <li>
-              <StyledLink onClick={() => setVisible(false)} to="/about">
+              <StyledLink
+                active={index === 5}
+                onClick={() => {
+                  setVisible(false);
+                  setIndex(5);
+                }}
+                to="/about"
+              >
                 Blogs
               </StyledLink>
             </li>
             <li>
-              <StyledLink onClick={() => setVisible(false)} to="/about">
+              <StyledLink
+                active={index === 6}
+                onClick={() => {
+                  setVisible(false);
+                  setIndex(6);
+                }}
+                to="/about"
+              >
                 Events
               </StyledLink>
             </li>
@@ -107,7 +194,7 @@ const Header = () => {
   );
 };
 
-const StyledLogoText = styled.h1`
+const StyledLogoText = styled.h2`
   color: #0079c0;
   align-self: center;
 
@@ -159,7 +246,7 @@ const StyledClose = styled.li`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: ${(prop) => (prop?.active ? "#0079c0" : "black")};
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;

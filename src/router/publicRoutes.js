@@ -12,10 +12,14 @@ import {
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Programs from "../pages/Programs";
+import MedicalProgram from "../pages/Programs/Medical";
 import Alumni from "../pages/Alumni";
 import Apply from "../pages/Apply";
 import Course from "../pages/Programs/components/Course";
 import LoginPage from "../pages/Auth/Login";
+import { useSelector } from "react-redux";
+import Enrollment from "../pages/Enrollment";
+import EnrollredCourses from "../pages/Enrollment/EnrolledCourse";
 
 export default function MainRoute() {
   return (
@@ -26,15 +30,28 @@ export default function MainRoute() {
 
       <Route path="/about" element={<About />} />
 
-      <Route path="/programs-and-courses" element={<Programs />} />
+      <Route path="/programs-and-courses/engineering" element={<Programs />} />
+      <Route
+        path="/programs-and-courses/medical"
+        element={<MedicalProgram />}
+      />
       <Route path="/alumni" element={<Alumni />} />
       <Route path="/apply-and-enroll" element={<Apply />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/programs-and-courses/:id" element={<Course />} />
       <Route
-        path="/programs-and-courses/:id"
+        path="/dashboard-courses/:id"
         element={
           <RequireAuth>
-            <Course />
+            <Enrollment />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/enrolled-course/:id"
+        element={
+          <RequireAuth>
+            <EnrollredCourses />
           </RequireAuth>
         }
       />
@@ -42,39 +59,12 @@ export default function MainRoute() {
   );
 }
 
-let AuthContext = React.createContext(null);
-
-export const AuthProvider = ({ children }) => {
-  let [user, setUser] = React.useState(null);
-
-  let signin = (newUser, callback) => {
-    return fakeAuthProvider.signin(() => {
-      setUser(newUser);
-      callback();
-    });
-  };
-
-  let signout = (callback) => {
-    return fakeAuthProvider.signout(() => {
-      setUser(null);
-      callback();
-    });
-  };
-
-  let value = { user, signin, signout };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-function useAuth() {
-  return React.useContext(AuthContext);
-}
-
 function RequireAuth({ children }) {
-  let auth = useAuth();
+  let auth = useSelector((state) => state.user.status);
+
   let location = useLocation();
 
-  if (!auth.user) {
+  if (!auth) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
@@ -96,5 +86,3 @@ const fakeAuthProvider = {
     setTimeout(callback, 100);
   },
 };
-
-export { useAuth };

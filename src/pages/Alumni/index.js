@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Col, Image, Row } from "antd";
+import { Card, Col, Row } from "antd";
 import cover from "../../assets/images/cover.jpg";
 import { PRIMARY_COLOR } from "../../constant/color";
 import styled from "styled-components";
@@ -38,7 +38,7 @@ const StyledText = styled.p`
 const Alumni = () => {
   return (
     <div>
-      <Image width={"100%"} height={"20vw"} src={cover} />
+      <img width={"100%"} height={"300px"} src={cover} />
 
       <Row style={{ margin: 20 }} gutter={30}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, index) => (

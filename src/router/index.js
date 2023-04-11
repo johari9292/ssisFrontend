@@ -6,29 +6,31 @@ import PublicRoutes from "./publicRoutes";
 import { Link } from "react-router-dom";
 import HeaderComp from "../header";
 import FooterComp from "../footer";
-import { AuthProvider } from "./publicRoutes";
+import { useSelector } from "react-redux";
+
 const { Header, Footer, Content } = Layout;
 const primaryColor = "blue";
 
 const AppRouter = () => {
+  let auth = useSelector((state) => state.user.status);
   return (
-    <AuthProvider>
-      <Layout style={{ minHeight: "100vh" }}>
-        <StyledHeaderContainer>
-          <HeaderComp />
-        </StyledHeaderContainer>
+    <Layout style={{ minHeight: "100vh" }}>
+      <StyledHeaderContainer>
+        <HeaderComp />
+      </StyledHeaderContainer>
 
-        <StyledContentContainer>
-          <PublicRoutes />
-        </StyledContentContainer>
+      <StyledContentContainer>
+        <PublicRoutes />
+      </StyledContentContainer>
+      {auth ? null : (
         <Footer style={{ backgroundColor: "#0079c0" }}>
           <FooterComp />
           <BackTop style={{ right: 20, bottom: 20 }}>
             <UpSquareFilled style={{ fontSize: "40px" }} />
           </BackTop>
         </Footer>
-      </Layout>
-    </AuthProvider>
+      )}
+    </Layout>
   );
 };
 const StyledHeaderContainer = styled.header`
