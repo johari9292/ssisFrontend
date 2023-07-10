@@ -1,5 +1,5 @@
 import React from "react";
-
+import cover from "../../assets/images/cover.jpg";
 import { Carousel, Row, Col, Typography, Space, Card } from "antd";
 import styled from "styled-components";
 
@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Carousel autoplay>
         <div>
-          <h1 style={contentStyle}>Upcoming Events</h1>
+          <img width={"100%"} height={"300px"} src={cover} />
         </div>
         <div>
           <h1 style={contentStyle}>Last Event</h1>
